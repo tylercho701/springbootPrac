@@ -7,11 +7,6 @@ import com.tjoeun.dto.TmpDTO;
 
 @RestController
 public class TestController {
-	
-	@GetMapping("/")
-	public String home() {
-		return "Spring Boot";
-	}
 
 	@GetMapping("/test1")
 	public TmpDTO test1() {

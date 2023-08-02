@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>상품설명</h2>
+	<div>
+		<a th:href="@{/test/t5(name='더조은', height=187)}">t5로 name과 height를 파라미터로 전달하기</a>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th><th>상품 이름</th><th>상품 상세</th><th>상품 가격</th><th>상품 등록일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="itemDTO, status : ${itemList}">
+				<td th:if="${status.even}" th:text="${status.count}" style="color:red; "></td>
+				<td th:unless="${status.even}" th:text="${status.count}" style="color:blue; ">></td>
+				<td th:text="${itemDTO.itemNm}"></td>
+				<td th:text="${itemDTO.itemDetail}"></td>
+				<td th:text="${itemDTO.price}"></td>
+				<td th:text="${itemDTO.regTime}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
