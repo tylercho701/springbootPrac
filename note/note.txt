@@ -77,7 +77,59 @@ Querydsl
 	java code로 작성하기 때문에 compile시 오류를 발견할 수 있음
 	동적으로 query 를 생성할 수 있음
 	
-	mvn repository	>	querydsl-jpa / querydsl-
+	mvnrepository	>	querydsl-jpa / querydsl-apt
+
+
+Login, Logout 기능 구현
+ㄴ	Spring Security 에서 UserDetailsService 인터페이스를 implements 하는 
+	클래스를 작성해서 로그인 기능 구현
+	
+	UserDetailsService 인터페이스는 DataBase에서 회원 정보를 가져오는 역할을 함
+		-	loadUserByUsername() 메소드를 overriding 해서
+			회원 정보를 조회하고 사용자의 정보와 권한을 갖는
+			UserDetail 인터페이스를 반환함
+			ㄴ	Spring Security에서 회원의 정보를 담는 기능을 함
+				UserDetail 인터페이스를 implements 하는 클래스(User)를 사용함
+													ㄴ	클래스(User)의 객체를 생성함
+
+
+연관 관계 매핑(매핑된 Entity를 조회할 때 지연로딩 방식과 즉시 로딩 방식이 있음)
+
+	즉시 로딩	-	@OneToOne(fetch=FetchType.EAGER)
+			ㄴ	@OneToOne, @ManyToOne 방식으로 매핑할 때 기본값
+			ㄴ	Entity 를 조회할 때 해당 Entity 와 Mapping 된 Entity를 한꺼번에 조회함
+	
+	지연 로딩	-	@OneToMany(fetch=FetchType.LAZY)
+			ㄴ	@OneToMany 방식으로 매핑할 때 기본값
+			ㄴ	필요한 시점에 연관된 객체(Entity)의 data를 조회함
+
+	연관 관계 매핑 종류
+	1)	1	:	1	<--	@OneToOne
+	2)	1	:	N	<--	@OneToMany
+	3)	N	:	1	<--	@ManyToOne
+	4)	N	:	N	<--	@ManyToMany
+	
+	연관 관계 매핑 방향
+	1)	단방향
+	2)	양방향	<--	대부분이 양방향
+	
+	
+	N	:	1	Mapping
+	
+		-	장바구니에는 고객이 구매하고자 하는 상품들을 담음
+		-	하나의 장바구니에는 여러개의 상품을 담을 수 있음
+		-	하나의 상품은 여러 장바구니에 담길 수 있음
+		-	장바구니 t	-	장바구니 상품t	-	상품
+
+
+orders 테이블과 order_item 테이블 관계 mapping
+
+	-	orders 테이블의 orders_id 컬럼을 order_item 테이블의 orders_id 컬럼에서 사용하도록 설정	=	Foreign Key
+	-	어떤 상품을 주문했는지 알 수 있고, 주문한 상품이 어떤 주문에 속해 있는지 파악할 수 있은
+		
+		**********************************************
+			외래키(Foreign Key) 로 양방향 조회를 할 수 있음
+		**********************************************
 
 
 
@@ -86,4 +138,22 @@ Querydsl
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**	class 안에 있으면 메소드
+	class 밖에 있으면 함수
 

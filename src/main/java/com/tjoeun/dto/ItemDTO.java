@@ -2,12 +2,10 @@ package com.tjoeun.dto;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Repository;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-@Repository
+
 @Getter @Setter @ToString
 public class ItemDTO {
 	
