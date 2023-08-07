@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+/*
 //	@Table(name="colleague")
 @Entity
 public class Student {
@@ -23,3 +23,4 @@ public class Student {
 	//	javaCamelCase	-->	db_snake_case
 	private int myHeight;
 }
+*/

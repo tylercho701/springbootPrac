@@ -1,7 +1,5 @@
 package com.tjoeun.entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,7 +23,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class Item extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,9 +47,6 @@ public class Item {
 	@Enumerated(EnumType.ORDINAL)
 	private ItemSellStatus itemSellStatus;
 	
-	private LocalDateTime regTime;		//	등록 시간
-	
-	private LocalDateTime updateTime;	//수정 시간
 	
 	
 

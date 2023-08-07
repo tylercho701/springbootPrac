@@ -30,7 +30,7 @@ import lombok.extern.log4j.Log4j2;
 class ItemRepositoryTest {
 	
 	@Autowired
-	private ItemRopository itemRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
 	private EntityManager entityManager;

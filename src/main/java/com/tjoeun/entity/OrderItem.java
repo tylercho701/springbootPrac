@@ -1,7 +1,5 @@
 package com.tjoeun.entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +19,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
 	@Id
 	@Column(name = "order_item_id")
@@ -39,8 +37,5 @@ public class OrderItem {
 	private int orderPrice;
 	
 	private int count;
-	
-	private LocalDateTime regTime;
-	
-	private LocalDateTime updateTime;
+
 }

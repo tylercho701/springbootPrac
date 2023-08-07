@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.tjoeun.entity.Item;
 
-public interface ItemRopository extends JpaRepository<Item, Long>,
+public interface ItemRepository extends JpaRepository<Item, Long>,
 										QuerydslPredicateExecutor<Item> {
 	//	find(EntityClass이름)By(멤버변수이름-DB의 컬럼)
 	List<Item> findByItemNm(String ItemNm);
