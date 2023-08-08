@@ -39,9 +39,9 @@ public class ItemImg {
 	private String repImgYn;			//	대표 이미지 여부
 	
 	//	이미지를 변경하는 경우
-	public void updateImg(String imgName, String oriImgName, String imgUrl) {
-		this.imgName = imgName;
+	public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
 		this.oriImgName = oriImgName;
+		this.imgName = imgName;
 		this.imgUrl = imgUrl;
 	}
 }

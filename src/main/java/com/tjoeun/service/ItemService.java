@@ -1,13 +1,19 @@
 package com.tjoeun.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tjoeun.dto.ItemFormDTO;
+import com.tjoeun.dto.ItemImgDTO;
+import com.tjoeun.dto.ItemSearchDTO;
 import com.tjoeun.entity.Item;
 import com.tjoeun.entity.ItemImg;
 import com.tjoeun.repository.ItemImgRepository;
@@ -74,6 +80,69 @@ public class ItemService {
 		//	item의 id를 반환
 		return item.getId();
 		
+	}
+	
+	// 상품 수정하기
+	public ItemFormDTO getItemDetail(Long itemId) {
+		
+		// DB 에서 이미지 가져오기 : DB 에서 가져오므로 Entity 인 ItemImg list 로 함
+		List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+		
+		// Entity 를 DTO 로 옮기고 이를 mapping 하는 image list 를 만듬
+		// DB 에서 이미지를 가져와서 View 에 보여줄려고 함 
+		//   ㄴ 수정해야 하므로 원래의 내용을 화면에 보여줌
+		List<ItemImgDTO> itemImgDTOList = new ArrayList<>();
+		
+		// ItemImg(Entity)  -->  itemImgDto
+		for(ItemImg itemImg: itemImgList) {
+			// ItemImgDto.of() :  Entity(itemImg) 를 받아서 DTO(ItemImgDto) 로 변환하는 mapper 			
+			ItemImgDTO itemImgDTO = ItemImgDTO.of(itemImg);
+			// itemImgDto 를 itemImgDtoList 에 추가함
+			itemImgDTOList.add(itemImgDTO);
+		}
+		
+		// DB 에서 item 테이블에 있는 값들 꺼내옴
+		Item item = itemRepository.findById(itemId)
+			                      .orElseThrow(EntityNotFoundException::new);
+		
+		// Item(Entity) --> ItemFormDto
+		ItemFormDTO itemFormDTO = ItemFormDTO.of(item); 
+		
+		itemFormDTO.setItemImgDTOList(itemImgDTOList);
+		
+		return itemFormDTO;
+	}
+	
+	//	실제로 item 수정하기
+	public Long updateItem(ItemFormDTO itemFormDTO, List<MultipartFile> itemImgFileList) throws Exception {
+		
+		//	상품 업데이트(수정)
+		//	수정 대상 상품(item)을 DB에서 가져오기 : item entity
+		Item item = itemRepository.findById(itemFormDTO.getId())
+								  .orElseThrow(EntityNotFoundException::new);
+		
+		//	파라미터로 전달되어 들어온
+		//	ItemFormDTO 객체를 argument로 넣음
+		item.updateItem(itemFormDTO);
+		
+		//	상품 이미지 업데이트(수정)
+		//	상품 이미지 번호(id)들을 가져옴
+		List<Long> itemImgIds = itemFormDTO.getItemImgIds();
+		
+		//	상품 이미지 업데이트 : itemImgId, itemImgFileList
+		for (int i = 0; i < itemImgFileList.size(); i++) {
+			itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+		}
+		
+		
+		// 정보를 수정한 상품이 몇 번째 상품인지 반환함
+	    // 이후에는 Controller 로 가서 수정 작업함
+		return item.getId();
+	}
+	
+	// 상품 가져오기
+	public Page<Item> getAdminItemPage(ItemSearchDTO itemSearchDto, Pageable pageable){
+		return itemRepository.getAdminItemPage(itemSearchDto, pageable);
 	}
 	
 }

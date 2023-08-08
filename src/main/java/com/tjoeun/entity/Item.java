@@ -11,6 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import com.tjoeun.constant.ItemSellStatus;
+import com.tjoeun.dto.ItemFormDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +49,13 @@ public class Item extends BaseEntity {
 	private ItemSellStatus itemSellStatus;
 	
 	
-	
+	//	item(entity) 업데이트 하기 : DB 테이블에 반영
+	public void updateItem(ItemFormDTO itemFormDTO) {
+		this.itemNm = itemFormDTO.getItemNm();
+		this.price = itemFormDTO.getPrice();
+		this.stockNumber = itemFormDTO.getStockNumber();
+		this.itemDetail = itemFormDTO.getItemDetail();
+		this.itemSellStatus = itemFormDTO.getItemSellStatus();
+	}
 
 }

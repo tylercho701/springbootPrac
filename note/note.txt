@@ -253,10 +253,10 @@ JPA에서 제공하는 7가지 Event
 	주로 등록일, 수정일, 등록한 사람, 수정한 사람 같은 
 	전체 엔티티에서 공통으로 적용하는 정보를 모을 때 사용함
 	
-    @Entity 클래스는 Enity나 @MappedSuperclass로 지정한 클래스만 상속이 가능함
+    @Entity 클래스는 Entity나 @MappedSuperclass로 지정한 클래스만 상속이 가능함
 
 
-modelmapper library
+modelMapper library
   ㄴ DTO 와 Entity 객체의 변환을 도와줌
      다른 클래스의 멤버변수의 자료형과 이름이 같은 경우,
      getter/setter 를 사용해서 값을 복사해서 객체를 반환함
@@ -333,7 +333,20 @@ config 패키지에 WebMvcConfig 클래스를 작성함
                               배열의 'off' 인덱스부터 'len' byte만큼 읽어서 문자로 출력
 
 
+상품 조회하기	<---	querydsl 사용
 
+	상품 관리 메뉴에 들어갔을 때 상품 조회하도록 하고,
+	페이징 기능으로 일정 개수의 상품만 화면에 출력
+	
+	조회 조건
+		1)	상품 등록일
+		2)	판매 상태
+		3)	상품명 
+		4)	등록자 아이디
+		
+	Querydsl + JPA	:	ItemRepository에서
+						QuerydslPredicateExecutor<Item> 를 상속
+						CustomItemRepository 작성
 
 
 

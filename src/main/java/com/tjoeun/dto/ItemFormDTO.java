@@ -51,7 +51,7 @@ public class ItemFormDTO {
 	
 	//	Item Entity에 있는 값을 ItemFormDTO에 저장해서 return함
 	//	DB에 있는 값을 화면에 출력함 - 수정
-	public ItemFormDTO of(Item item) {
+	public static ItemFormDTO of(Item item) {
 		return modelMapper.map(item, ItemFormDTO.class);
 	}
 	
